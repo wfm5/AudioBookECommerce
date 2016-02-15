@@ -2,8 +2,8 @@
 namespace app\view;
 use app\model as model;
 
-class pageIndex extends model\pageTemplate{
+class pageSearch extends model\pageTemplate{
 	
-}
+} 
 
 ?>
