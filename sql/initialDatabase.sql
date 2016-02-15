@@ -24,13 +24,21 @@ create table customer_payment(
 	FOREIGN KEY(account_ID) REFERENCES account(account_ID)
 )ENGINE=InnoDB;
 
+create table genre(
+	genre_ID int NOT NULL,
+	genre_name varchar(256) NOT NULL,
+	PRIMARY KEY(genre_ID)
+)ENGINE=InnoDB;
+
 create table inventory(
 	item_ID int NOT NULL,
+	genre_ID int NOT NULL,
 	author_name varchar(256) NOT NULL,
 	item_details varchar(256),
 	item_price decimal(10,2) NOT NULL,
 	item_name varchar(255) NOT NULL,
-	PRIMARY KEY(item_ID)
+	PRIMARY KEY(item_ID),
+	FOREIGN KEY(genre_ID) REFERENCES genre(genre_ID)
 )ENGINE=InnoDB;
 
 create table order_status(
