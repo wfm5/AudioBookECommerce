@@ -6,6 +6,10 @@ class pageBrowse extends model\pageTemplate{
 	
 	//page that shows book data based on
 
+	public function getBody(){
+		
+	}
+
 } 
 
 ?>

@@ -10,10 +10,15 @@
 
 <div class="container">
 <?php
+
+ob_start();
+session_start();
+
 include("app/appMain.php");
 use app\model as Model;
 use app\view as View;
 $main = new Model\main($db);
+
 ?>
 </div>
 
