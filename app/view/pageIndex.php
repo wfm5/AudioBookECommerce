@@ -12,6 +12,8 @@ class pageIndex extends model\pageTemplate{
 		*
 		**/
 
+		echo $this->db;
+
 	}
 
 }

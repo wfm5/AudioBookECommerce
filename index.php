@@ -14,7 +14,7 @@
 ob_start();
 session_start();
 
-include("app/appMain.php");
+include("app/model/dbConnect.php");
 use app\model as Model;
 use app\view as View;
 $main = new Model\main($db);

@@ -18,7 +18,7 @@ abstract class pageTemplate{
 	}
 
 	public function get(){
-		
+		$this->getBody();
 	}
 
 	public function getHeader(){

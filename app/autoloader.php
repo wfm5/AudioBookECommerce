@@ -1,6 +1,6 @@
 <?php
 
-class autoload{
+class autoloader{
 
 	public static function load($class){
 
