@@ -1,7 +1,7 @@
 <?php
 namespace app\view;
 
-class pageLogin{
+class pageLogin {
 	
 }
 

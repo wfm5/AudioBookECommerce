@@ -14,6 +14,8 @@
 ob_start();
 session_start();
 
+$_SESSION['username'] = null;
+
 include("app/model/dbConnect.php");
 use app\model as Model;
 use app\view as View;

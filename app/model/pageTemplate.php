@@ -14,11 +14,13 @@ abstract class pageTemplate{
 	public function __construct($db){
 
 		$this->db = $db;
-
+		
 	}
 
 	public function get(){
+		$this->getHeader();
 		$this->getBody();
+		$this->getFooter();
 	}
 
 	public function getHeader(){
@@ -27,7 +29,7 @@ abstract class pageTemplate{
 		*	@brief Creates header of page
 		*
 		**/
-
+		//include('');
 	}
 	public function getBody(){
 		/**
@@ -43,7 +45,7 @@ abstract class pageTemplate{
 		*	@brief Creates footer of page
 		*
 		**/
-
+		//include('');
 	}
 
 
