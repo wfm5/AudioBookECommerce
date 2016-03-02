@@ -21,7 +21,36 @@ class account{
 
 	}
 
-	//public function 
+	public function showInfo(){
+
+		return 'username: ' . $this->user . ' password: ' . $this->pass . ' email: ' . $this->email . ' Account Type: ' . $this->actType . ' phone: ' . $this->phNum;
+
+	} 
+	public function getUser(){
+
+		return $this->user;
+	
+	}
+	public function getPass(){
+
+		return $this->pass;
+	
+	}
+	public function getEmail(){
+
+		return $this->email;
+	
+	}
+	public function getActType(){
+
+		return $this->actType;
+	
+	}
+	public function getPhone(){
+
+		return $this->phNum;
+	
+	}
 
 }
 

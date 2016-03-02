@@ -8,6 +8,7 @@ create table account(
 	account_ID int NOT NULL,
 	account_type_ID int NOT NULL,
 	account_email varchar(128) NOT NULL,
+	account_address varchar(256) NOT NULL,
 	account_username varchar(128) NOT NULL,
 	account_password varchar(128) NOT NULL,
 	phone_num varchar(50) NOT NULL,
@@ -37,6 +38,7 @@ create table inventory(
 	item_details varchar(256),
 	item_price decimal(10,2) NOT NULL,
 	item_name varchar(255) NOT NULL,
+	item_img varchar(255) NOT NULL,
 	date_added date NOT NULL,
 	PRIMARY KEY(item_ID),
 	FOREIGN KEY(genre_ID) REFERENCES genre(genre_ID)
