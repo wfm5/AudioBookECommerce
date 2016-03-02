@@ -10,6 +10,13 @@ class pageUser extends model\pageTemplate{
 	*
 	**/
 
+	private $db;
+
+	public function __construct($db){
+
+		$this->db = $db;
+
+	}
 
 }
 

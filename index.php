@@ -14,8 +14,18 @@
 ob_start();
 session_start();
 
-
 include("app/model/dbConnect.php");
+
+$db = NULL;
+
+try{
+	$db = new PDO("mysql:host=$dbHost;dbname=$dbName", $dbUser, $dbPass);
+	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+}catch( PDOException $e){
+	echo $e->getMessage();
+}
+
 use app\model as Model;
 use app\view as View;
 $main = new Model\main($db);

@@ -4,6 +4,14 @@ use app\model as model;
 
 class pageLogout extends model\pageTemplate{
 	
+	private $db;
+
+	public function __construct($db){
+
+		$this->db = $db;
+
+	}
+
 	public function getBody(){
 
 		if(isset($_SESSION['username'])){
