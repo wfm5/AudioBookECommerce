@@ -92,7 +92,7 @@ class pageRegister extends model\pageTemplate{
 					// Once that stuff works, then it does a try/catch block to add new item
 				
 					try{
-						$this->db->beginTransaction();
+						$this->db->beginTransaction(); //like git init
 						$stmt = $this->db->prepare('
 							insert into account(account_type_ID, account_email, account_address, account_username, account_password, phone_num)
 							values(
@@ -108,12 +108,16 @@ class pageRegister extends model\pageTemplate{
 						$stmt->bindParam(':user', $user);
 						$stmt->bindParam(':pass', $pass);
 						$stmt->bindParam(':phone', $number);
-						$stmt->execute();
-						$this->db->commit();
+						$stmt->execute(); // like a git add
 
-						echo '';
+						$this->db->commit(); // like a git commit
+
+						echo '<h3>Username Successful</h3>';
+						echo '<form method="get">';
+						echo ' 	<button type="submit" name="page" value="pageLogin">Sign In</button>';
+						echo '</form>';
 					}catch(Exception $e){
-						$this->db->rollBack();
+						$this->db->rollBack(); 	// in case of any errors, this gets called and anything before the db->commit doesn't happen
 						echo '<h3>User Information is incorrect</h3>';
 						$this->newUser();
 					}

@@ -5,7 +5,7 @@ create table account_type(
 )ENGINE=InnoDB;
 
 create table account(
-	account_ID int NOT NULL,
+	account_ID int NOT NULL AUTO_INCREMENT,
 	account_type_ID int NOT NULL,
 	account_email varchar(128) NOT NULL,
 	account_address varchar(256) NOT NULL,
@@ -17,7 +17,7 @@ create table account(
 )ENGINE=InnoDB;
 
 create table customer_payment(
-	card_ID int NOT NULL,
+	card_ID int NOT NULL AUTO_INCREMENT,
 	account_ID int NOT NULL,
 	billing_address varchar(256) NOT NULL,
 	card_number varchar(80) NOT NULL,
@@ -26,13 +26,13 @@ create table customer_payment(
 )ENGINE=InnoDB;
 
 create table genre(
-	genre_ID int NOT NULL,
+	genre_ID int NOT NULL AUTO_INCREMENT,
 	genre_name varchar(256) NOT NULL,
 	PRIMARY KEY(genre_ID)
 )ENGINE=InnoDB;
 
 create table inventory(
-	item_ID int NOT NULL,
+	item_ID int NOT NULL AUTO_INCREMENT,
 	genre_ID int NOT NULL,
 	author_name varchar(256) NOT NULL,
 	item_details varchar(256),
@@ -45,13 +45,13 @@ create table inventory(
 )ENGINE=InnoDB;
 
 create table order_status(
-	order_status_ID int NOT NULL,
+	order_status_ID int NOT NULL AUTO_INCREMENT,
 	order_status varchar(56) NOT NULL,
 	PRIMARY KEY(order_status_ID)
 )ENGINE=InnoDB;
 
 create table `order`(
-	order_ID int NOT NULL,
+	order_ID int NOT NULL AUTO_INCREMENT,
 	account_ID int NOT NULL,
 	order_status_ID int NOT NULL,
 	card_ID int NOT NULL,
@@ -64,7 +64,7 @@ create table `order`(
 )ENGINE=InnoDB;
 
 create table order_item_detail(
-	order_detail_ID int NOT NULL,
+	order_detail_ID int NOT NULL AUTO_INCREMENT,
 	order_ID int NOT NULL,
 	item_ID int NOT NULL,
 	order_item_quantity int NOT NULL,
