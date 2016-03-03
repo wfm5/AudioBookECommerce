@@ -12,7 +12,7 @@ class pageRegister extends model\pageTemplate{
 
 	}
 
-	public function getBody($db){
+	public function getBody(){
 
 		if(isset($_SESSION['username'])){
 			echo '<form method="get">';
@@ -26,8 +26,112 @@ class pageRegister extends model\pageTemplate{
 			*
 			**/
 
-			if(!isset($_REQUEST['email'])){
-				echo '
+			if((isset($_REQUEST['email']) && isset($_REQUEST['username']) && isset($_REQUEST['password']) && isset($_REQUEST['rePass']) && isset($_REQUEST['address']) && isset($_REQUEST['actType'])) && $_REQUEST['password'] == $_REQUEST['rePass']){
+				
+				/**
+				*
+				*	database additions
+				*
+				**/
+
+				$email = $_REQUEST['email'];
+				$user = $_REQUEST['username'];
+				$pass = $_REQUEST['password'];
+				$rePass = $_REQUEST['rePass'];
+				$address = $_REQUEST['address'];
+				$actType = $_REQUEST['actType'];
+				$number = $_REQUEST['number'];
+
+				if($pass == $rePass){
+
+					$empCheck = 0;
+					$custCheck = 0;
+					// Checking if the database needs to create things for account types
+					try{
+						$stmt = $this->db->prepare('select * from account_type');
+						if($stmt->execute()){
+							while($data = $stmt->fetch()){
+								if($data[1] == 'customer'){
+									$custCheck = $custCheck + 1;
+								}else if($data[1] == 'employee'){
+									$empCheck = $empCheck + 1;
+								}
+							}
+						}
+					}catch(Exception $e){
+
+						$this->newUser();
+
+					}
+
+					if(!($empCheck > 0)){
+						try{
+							$this->db->beginTransaction();
+							$stmt = $this->db->prepare('insert into account_type values("1", "employee")');
+							if($stmt->execute()){
+								echo "did it";
+							}
+							$this->db->commit();
+						}catch(Exception $e){
+							$this->db->rollBack();
+						}
+					}
+					if(!($custCheck > 0)){
+						try{
+							$this->db->beginTransaction();
+							$stmt = $this->db->prepare('insert into account_type values("2", "customer")');
+							if($stmt->execute()){
+								echo "did it";
+							}
+							$this->db->commit();
+						}catch(Exception $e){
+							$this->db->rollBack();
+						}
+					}
+
+					// Once that stuff works, then it does a try/catch block to add new item
+				
+					try{
+						$this->db->beginTransaction();
+						$stmt = $this->db->prepare('
+							insert into account(account_type_ID, account_email, account_address, account_username, account_password, phone_num)
+							values(
+								:acType,
+								:email,
+								:address,
+								:user,
+								:pass,
+								:phone);');
+						$stmt->bindParam(':acType', $actType);
+						$stmt->bindParam(':email', $email);
+						$stmt->bindParam(':address', $address);
+						$stmt->bindParam(':user', $user);
+						$stmt->bindParam(':pass', $pass);
+						$stmt->bindParam(':phone', $number);
+						$stmt->execute();
+						$this->db->commit();
+
+						echo '';
+					}catch(Exception $e){
+						$this->db->rollBack();
+						echo '<h3>User Information is incorrect</h3>';
+						$this->newUser();
+					}
+
+				}
+
+			}else{
+
+				$this->newUser();
+
+			}
+		}
+
+	}
+
+	public function newUser(){
+
+		echo '
 				<div id="registBody">
 					<h2>New User Sign Up</h2>
 					<h5>Welcome!</h5>
@@ -36,10 +140,19 @@ class pageRegister extends model\pageTemplate{
 						<input type="text" name="email" required><br>
 						<label>Username</label>
 						<input type="text" name="username" required></br>
+						<label>Address</label>
+						<input type="text" name="address" required></br>
+						<label>Phone Number</label>
+						<input type="text" name="number" required></br>
 						<label>Password</label>
 						<input type="text" name="password" required></br>
 						<label>Retype Password</label>
 						<input type="text" name="rePass" required></br>
+						<label>Account Type</label>
+						<select name="actType" required>
+							<option value="2">Customer</option>
+							<option value="1">Employee</option>
+						</select></br>
 						<button type="submit" name="page" value="pageRegister">Register</button>
 					</form>
 					<form method="get">
@@ -47,15 +160,8 @@ class pageRegister extends model\pageTemplate{
 					</form>
 				</div>
 				';
-			}else{
-
-
-
-			}
-		}
 
 	}
-
 
 }
 ?>
