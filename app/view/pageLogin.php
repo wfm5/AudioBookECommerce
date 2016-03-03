@@ -50,6 +50,7 @@ class pageLogin extends model\pageTemplate{
 						/**
 						* database stuff
 						**/
+
 						$rowCount = 0;
 	
 						$stmt = $this->db->prepare('select account_username from account 
@@ -60,6 +61,11 @@ class pageLogin extends model\pageTemplate{
 							while($data = $stmt->fetch()){
 								$rowCount = $rowCount + 1;
 								$_SESSION['username'] = $data[0];
+								if($data[1] == 1){				
+									$_SESSION['actType'] = "employee";
+								}else{
+									$_SESSION['actType'] = "customer";
+								}
 							}
 						}
 						if($rowCount > 0){
