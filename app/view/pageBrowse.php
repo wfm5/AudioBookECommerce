@@ -14,36 +14,27 @@ class pageBrowse extends model\pageTemplate
 
 	}
 
-
-	public function mysql_query_or_die($query) 
-		{
-	    	$result = mysql_query($query);
-		    if ($result)
-		        return $result;
-		    else 
-		    {
-		        $err = mysql_error();
-		        die("<br>{$query}<br>*** {$err} ***<br>");
-	    	}
-	    }
 		public function getBody()
 		{
 			try{
-				$rowcount;
+				
+				$rowcount = 1;
 
-				$stmt = $this->db->prepare('select * from inventory where item_ID <= 3');
+				$stmt = $this->db->prepare('select * from inventory limit 3');
 
 				if($stmt->execute())
 				{
 					while($data = $stmt->fetch())
 					{
-						$rowcount = $rowcount+1;
-						echo 'Book1:'.$data[0].'';
+						echo ''.$data[5].'-  Book ID:'.$data[0].' Author:'.$data[2].' Price: $'.$data[4].'<br>';
+
+						$rowcount++;
 					}
 				}
 
 
-			}catch(Exception $e)
+			}
+			catch(Exception $e)
 			{
 				echo'errrrrrrrrrrrror';
 			}
