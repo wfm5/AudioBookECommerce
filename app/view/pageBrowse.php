@@ -2,8 +2,8 @@
 namespace app\view;
 use app\model as model;
 
-class pageBrowse extends model\pageTemplate{
-	
+class pageBrowse extends model\pageTemplate
+{
 	//page that shows book data based on
 
 	private $db;
@@ -14,9 +14,31 @@ class pageBrowse extends model\pageTemplate{
 
 	}
 
-	public function getBody(){
-		
-	}
+		public function getBody()
+		{
+			try{
+				
+				$rowcount = 1;
+
+				$stmt = $this->db->prepare('select * from inventory limit 3');
+
+				if($stmt->execute())
+				{
+					while($data = $stmt->fetch())
+					{
+						echo ''.$data[5].'-  Book ID:'.$data[0].' Author:'.$data[2].' Price: $'.$data[4].'<br>';
+
+						$rowcount++;
+					}
+				}
+
+
+			}
+			catch(Exception $e)
+			{
+				echo'errrrrrrrrrrrror';
+			}
+		}
 
 } 
 
